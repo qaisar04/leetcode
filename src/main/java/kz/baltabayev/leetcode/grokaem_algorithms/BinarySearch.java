@@ -1,7 +1,13 @@
-package kz.baltabayev.leetcode;
+package kz.baltabayev.leetcode.grokaem_algorithms;
 
 public class BinarySearch {
+
+    // O(logn)
     public int search(int[] nums, int target) {
+        if (isListEmpty(nums)) {
+            return -1;
+        }
+
         int left = 0;
         int right = nums.length - 1;
 
@@ -15,5 +21,13 @@ public class BinarySearch {
         }
 
         return -1;
+    }
+
+    public boolean isListEmpty(int[] myList) {
+        int listSize = myList.length;
+        if (listSize == 0) {
+            return true;
+        }
+        return false;
     }
 }
