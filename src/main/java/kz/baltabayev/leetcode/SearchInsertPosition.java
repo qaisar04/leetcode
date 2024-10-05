@@ -1,19 +1,25 @@
 package kz.baltabayev.leetcode;
 
 public class SearchInsertPosition {
+
     public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int index = 0;
 
-        int index = -1;
-        for (int i = 0; i < nums.length; i++) {
+        while (left <= right) {
+            int middle = right - (right - left) / 2;
+            int middleValue = nums[middle];
 
-            if (nums[i] == target) {
-                return i;
+            if (middleValue == target) {
+                return middle;
             }
 
-            if (nums[i] < target) {
-                index = i + 1;
+            if (middleValue < target) {
+                left = middle + 1;
+                index = left;
             } else {
-                index = i - 1;
+                right = middle - 1;
             }
         }
 
