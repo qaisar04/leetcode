@@ -1,25 +1,47 @@
 package kz.baltabayev.leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class MedianOfTwoSortedArrays {
+
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        ArrayList<Integer> list = new ArrayList<>();
+        int totalLength = nums1.length + nums2.length;
+        int median;
 
-        for (int i : nums1) {
-            list.add(i);
-        }
-        for (int i : nums2) {
-            list.add(i);
-        }
-
-        Collections.sort(list);
-        int size = list.size();
-        if (size % 2 == 1) {
-            return (double) list.get((size - 1) / 2);
+        // Вычисялем индекс медианы
+        if (totalLength % 2 == 0) {
+            median = totalLength / 2;
+        } else {
+            median = (totalLength - 1) / 2;
         }
 
-        return (double) (list.get(size / 2) + list.get(size / 2 - 1)) / 2;
+        int searched;
+        if (nums1.length > nums2.length) {
+            searched = search(nums1, median);
+        } else {
+            searched = search(nums2, median);
+        }
+        return (double) searched;
+    }
+
+    // Метод, который выполняет поиск элемента по индексу (target) используя бинарный поиск
+    public int search(int[] nums1, int target) {
+        int left = 0;
+        int right = nums1.length - 1;
+
+        while (left <= right) {
+            int middle = right - (right - left) / 2;
+            int middleValue = nums1[middle];
+
+            if (middle == target) {
+                return middleValue;
+            }
+
+            if (middle > target) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+
+        return -1;
     }
 }
