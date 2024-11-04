@@ -18,29 +18,31 @@ public class StringCompressionIII {
     }
 
     public String compressedString(String word) {
-        char[] array = word.toCharArray();
-        LinkedList<String> comp = new LinkedList<>();
+        StringBuilder comp = new StringBuilder();
 
         int counter = 1;
         for (int i = 0; i < word.length() - 1; i++) {
-            if (counter == 9 && array[i] == array[i + 1]) {
-                comp.add(String.valueOf(counter));
-                comp.add(String.valueOf(array[i]));
-                counter = 0;
-            }
-
-            if (array[i] == array[i + 1]) {
+            if (word.charAt(i) == word.charAt(i + 1)) {
                 counter++;
+                if (counter == 9) {
+                    comp.append(9).append(word.charAt(i));
+                    counter = 0;
+                }
             } else {
-                comp.add(String.valueOf(counter));
-                comp.add(String.valueOf(array[i]));
+                if (counter == 0) {
+                    counter = 1;
+                    continue;
+                }
+
+                comp.append(counter).append(word.charAt(i));
                 counter = 1;
             }
         }
 
-        comp.add(String.valueOf(counter));
-        comp.add(String.valueOf(array[word.length() - 1]));
+        if (counter != 0) {
+            comp.append(counter).append(word.charAt(word.length() - 1));
+        }
 
-        return String.join("", comp);
+        return comp.toString();
     }
 }
