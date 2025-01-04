@@ -1,28 +1,32 @@
 package kz.baltabayev.leetcode;
 
+import java.util.Arrays;
+
 public class ProductOfArrayExceptSelf {
+
+    public static void main(String[] args) {
+        ProductOfArrayExceptSelf product = new ProductOfArrayExceptSelf();
+        int[] nums = {1, 2, 3, 4};
+        System.out.println(Arrays.toString(product.productExceptSelf(nums))); // [24, 12, 8, 6]
+    }
+
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int[] leftProducts = new int[n];
-        int[] rightProducts = new int[n];
-        int[] ans = new int[n];
+        int[] answer = new int[n];
 
-        int leftProduct = 1;
-        for (int i = 0; i < n; i++) {
-            leftProducts[i] = leftProduct;
-            leftProduct *= nums[i];
+        // Шаг 1: Заполняем префиксы
+        answer[0] = 1;
+        for (int i = 1; i < n; i++) {
+            answer[i] = answer[i - 1] * nums[i - 1];
         }
 
-        int rightProduct = 1;
+        // Шаг 2: Учитываем суффиксы
+        int suffix = 1;
         for (int i = n - 1; i >= 0; i--) {
-            rightProducts[i] = rightProduct;
-            rightProduct *= nums[i];
+            answer[i] *= suffix;
+            suffix *= nums[i]; // Обновляем суффикс
         }
 
-        for (int i = 0; i < n; i++) {
-            ans[i] = leftProducts[i] * rightProducts[i];
-        }
-
-        return ans;
+        return answer;
     }
 }
