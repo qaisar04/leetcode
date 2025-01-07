@@ -1,5 +1,8 @@
 package kz.baltabayev.leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,22 +10,19 @@ import java.util.Set;
 public class StringMatchingInAnArray {
 
     public List<String> stringMatching(String[] words) {
-        Set<String> match = new HashSet<>();
+        Arrays.sort(words, Comparator.comparingInt(String::length));
+
+        Set<String> substrings = new HashSet<>();
+
         for (int i = 0; i < words.length; i++) {
-            for (int j = 0; j < words.length; j++) {
-                if (i == j) {
-                    continue;
-                }
-
-                String first = words[i];
-                String second = words[j];
-
-                if (first.contains(second)) {
-                    match.add(second);
+            for (int j = i + 1; j < words.length; j++) {
+                if (words[j].contains(words[i])) {
+                    substrings.add(words[i]);
+                    break;
                 }
             }
         }
 
-        return match.stream().toList();
+        return new ArrayList<>(substrings);
     }
 }
