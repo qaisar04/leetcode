@@ -1,7 +1,5 @@
 package kz.baltabayev.leetcode.leetcode_75;
 
-import java.util.HashMap;
-
 public class StringCompression {
 
     public static void main(String[] args) {
