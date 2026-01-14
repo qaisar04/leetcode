@@ -1,5 +1,6 @@
 package kz.baltabayev.leetcode;
 
+import java.util.Map;
 import java.util.Stack;
 
 public class ValidParentheses {
@@ -8,18 +9,18 @@ public class ValidParentheses {
             return true;
         }
 
+        Map<Character, Character> brackets = Map.of('(', ')', '[', ']', '{', '}');
+
         Stack<Character> stack = new Stack<>();
         for (char c : s.toCharArray()) {
-            if (c == '(' || c == '{' || c == '[') {
-                stack.push(c);
-            } else if (c == ')' && !stack.isEmpty() && stack.peek() == '(') {
-                stack.pop();
-            } else if (c == '}' && !stack.isEmpty() && stack.peek() == '{') {
-                stack.pop();
-            } else if (c == ']' && !stack.isEmpty() && stack.peek() == '[') {
-                stack.pop();
+            if (brackets.containsKey(c)) {
+                stack.push(brackets.get(c));
             } else {
-                return false;
+                if (stack.isEmpty()) return false;
+                Character pop = stack.pop();
+                if (!pop.equals(c)) {
+                    return false;
+                }
             }
         }
 
