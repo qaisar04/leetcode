@@ -1,4 +1,4 @@
-package kz.baltabayev.leetcode;
+package kz.baltabayev.leetcode.bfs;
 
 import java.util.ArrayList;
 import java.util.Collections;
