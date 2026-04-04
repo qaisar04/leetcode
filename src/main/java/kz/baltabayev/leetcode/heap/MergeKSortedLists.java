@@ -22,7 +22,7 @@ public class MergeKSortedLists {
             ListNode smallestNode = minHeap.poll();
             tail.next = smallestNode;
 
-            if (smallestNode.next != null) {
+            if (!Objects.isNull(smallestNode.next)) {
                 minHeap.add(smallestNode.next);
             }
             tail = tail.next;
